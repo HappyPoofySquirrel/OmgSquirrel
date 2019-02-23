@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:id="@+id/nav_secondary"
+            app:startDestination="@id/facts">
+
+    <fragment
+            android:id="@+id/facts"
+            android:name="com.guyverhopkins.omgsquirrel.ui.facts.FactsFragment"
+            tools:layout="@layout/facts_fragment"/>
+
+    <fragment
+            android:id="@+id/sounds"
+            android:name="com.guyverhopkins.omgsquirrel.ui.sounds.SoundsFragment"
+            tools:layout="@layout/sounds_fragment"/>
+
+    <fragment
+            android:id="@+id/gallery"
+            android:name="com.guyverhopkins.omgsquirrel.ui.gallery.GalleryFragment"
+            tools:layout="@layout/gallery_fragment"/>
+
+</navigation>
