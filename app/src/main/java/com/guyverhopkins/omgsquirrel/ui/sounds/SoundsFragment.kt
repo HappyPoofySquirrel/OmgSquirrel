@@ -11,10 +11,6 @@ import com.guyverhopkins.omgsquirrel.R
 
 class SoundsFragment : Fragment() {
 
-    companion object {
-        fun newInstance() = SoundsFragment()
-    }
-
     private lateinit var viewModel: SoundsViewModel
 
     override fun onCreateView(

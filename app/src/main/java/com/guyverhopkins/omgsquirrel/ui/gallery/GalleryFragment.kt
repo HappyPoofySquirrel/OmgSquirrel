@@ -11,10 +11,6 @@ import com.guyverhopkins.omgsquirrel.R
 
 class GalleryFragment : Fragment() {
 
-    companion object {
-        fun newInstance() = GalleryFragment()
-    }
-
     private lateinit var viewModel: GalleryViewModel
 
     override fun onCreateView(

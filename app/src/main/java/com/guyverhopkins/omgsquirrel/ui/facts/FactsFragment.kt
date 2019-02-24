@@ -7,13 +7,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 
-import com.guyverhopkins.omgsquirrel.R
+import kotlinx.android.synthetic.main.facts_fragment.*
+
 
 class FactsFragment : Fragment() {
-
-    companion object {
-        fun newInstance() = FactsFragment()
-    }
 
     private lateinit var viewModel: FactsViewModel
 
@@ -21,13 +18,17 @@ class FactsFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.facts_fragment, container, false)
+        return inflater.inflate(com.guyverhopkins.omgsquirrel.R.layout.facts_fragment, container, false)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProviders.of(this).get(FactsViewModel::class.java)
-        // TODO: Use the ViewModel
+
+        myWebView.loadUrl("file:///android_asset/facts.html")
+
+
+        myWebView.setBackgroundColor(0x29384999)
     }
 
 }
