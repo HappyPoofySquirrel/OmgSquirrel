@@ -8,6 +8,8 @@ import android.view.View
 import android.view.ViewGroup
 
 import com.guyverhopkins.omgsquirrel.R
+import com.guyverhopkins.omgsquirrel.core.SoundPlayer
+import kotlinx.android.synthetic.main.sounds_fragment.*
 
 class SoundsFragment : Fragment() {
 
@@ -22,7 +24,14 @@ class SoundsFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProviders.of(this).get(SoundsViewModel::class.java)
+
+//        val soundPool = SoundPool.Builder().setMaxStreams(1).build()
+        viewModel = ViewModelProviders.of(this, SoundsViewModelFactory(SoundPlayer(activity))).get(SoundsViewModel::class.java)
+
+        btn_bark.setOnClickListener {
+            viewModel.onBarkPressed()
+        }
+
         // TODO: Use the ViewModel
     }
 

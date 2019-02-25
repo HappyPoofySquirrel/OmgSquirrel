@@ -1,7 +1,22 @@
 package com.guyverhopkins.omgsquirrel.ui.sounds
 
 import androidx.lifecycle.ViewModel;
+import androidx.lifecycle.ViewModelProvider
+import com.guyverhopkins.omgsquirrel.core.ISoundPlayer
 
-class SoundsViewModel : ViewModel() {
+class SoundsViewModel(private val soundPlayer: ISoundPlayer) : ViewModel() {
+    fun onBarkPressed() {
+soundPlayer.bark()
+    }
     // TODO: Implement the ViewModel
+}
+
+class SoundsViewModelFactory(private val soundPlayer: ISoundPlayer) : ViewModelProvider.Factory {
+    override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+        return if (modelClass.isAssignableFrom(SoundsViewModel::class.java)) {
+            SoundsViewModel(soundPlayer) as T
+        } else {
+            throw IllegalArgumentException("Edit ViewModel Not Found")
+        }
+    }
 }
