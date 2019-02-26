@@ -16,8 +16,23 @@ import com.guyverhopkins.omgsquirrel.R
  * i dont like that i need context here figure out a way to omit it
  */
 class SoundPlayer(private val context: Context?) : ISoundPlayer, SoundPool.OnLoadCompleteListener {
+
+    private var loop = 0
+
     override fun onLoadComplete(p0: SoundPool?, p1: Int, p2: Int) {
         loaded = true
+    }
+
+    override fun stopAllSounds() { //todo this is not working is loop is toggled
+        soundPool.stop(barkId)
+    }
+
+    override fun setLoop(shouldLoop: Boolean) {
+        loop = if (shouldLoop) {
+            -1
+        } else {
+            0
+        }
     }
 
     private var loaded = false
@@ -28,6 +43,7 @@ class SoundPlayer(private val context: Context?) : ISoundPlayer, SoundPool.OnLoa
     private val assetManager: AssetManager? = null
 
     val barkId = soundPool.load(context, R.raw.barking, 1)
+
     init {
         soundPool.setOnLoadCompleteListener(this)
     }
@@ -36,7 +52,7 @@ class SoundPlayer(private val context: Context?) : ISoundPlayer, SoundPool.OnLoa
 //        soundPool.load(context, context?.resources?.getIdentifier("barking", "raw/sounds", context?.packageName))
 //        val barkId = soundPool.load(context, R.raw.barking, 1)
         loaded?.let {
-            soundPool.play(barkId, 1f, 1f, 1, 0, 1f)
+            soundPool.play(barkId, 1f, 1f, 1, loop, 1f)
         }
     }
 

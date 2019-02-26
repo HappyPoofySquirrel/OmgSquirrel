@@ -27,8 +27,6 @@ class FactsFragment : Fragment() {
 
         myWebView.loadUrl("file:///android_asset/facts.html")
 
-
-        myWebView.setBackgroundColor(0x29384999)
     }
 
 }
