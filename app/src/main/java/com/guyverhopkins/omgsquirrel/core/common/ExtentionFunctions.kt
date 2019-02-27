@@ -1,4 +1,4 @@
-package com.guyverhopkins.omgsquirrel
+package com.guyverhopkins.omgsquirrel.core.common
 
 import androidx.lifecycle.MutableLiveData
 

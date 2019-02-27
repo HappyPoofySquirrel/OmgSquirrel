@@ -4,6 +4,8 @@ apply plugin: 'kotlin-android'
 
 apply plugin: 'kotlin-android-extensions'
 
+apply plugin: 'kotlin-kapt'
+
 android {
     compileSdkVersion 28
     defaultConfig {
@@ -51,6 +53,23 @@ dependencies {
     implementation 'com.google.code.gson:gson:2.8.2'
     implementation 'com.squareup.retrofit2:converter-gson:2.4.0'
 
+    //navigation
     implementation "android.arch.navigation:navigation-fragment-ktx:1.0.0-alpha02"
     implementation "android.arch.navigation:navigation-ui-ktx:1.0.0-alpha02"
+
+    //coroutines
+    def coroutine_version = '1.0.1'
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutine_version"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutine_version"
+
+    //for testing livedata in junitT
+    testImplementation 'android.arch.core:core-testing:1.1.1'
+
+    //paging
+    implementation "android.arch.paging:runtime:1.0.1"
+
+    //room
+    def room_version = "2.0.0"
+    implementation "androidx.room:room-runtime:$room_version"
+    kapt "android.arch.persistence.room:compiler:$room_version"
 }

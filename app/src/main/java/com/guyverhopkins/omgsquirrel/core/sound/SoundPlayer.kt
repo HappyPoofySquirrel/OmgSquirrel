@@ -1,14 +1,13 @@
-package com.guyverhopkins.omgsquirrel.core
+package com.guyverhopkins.omgsquirrel.core.sound
 
 import android.content.ContentValues.TAG
 import android.content.Context
-import android.media.SoundPool
-import android.content.res.AssetFileDescriptor
-import android.util.Log
-import java.io.IOException
 import android.content.res.AssetManager
 import android.media.AudioManager
+import android.media.SoundPool
+import android.util.Log
 import com.guyverhopkins.omgsquirrel.R
+import java.io.IOException
 
 
 /**
@@ -23,22 +22,22 @@ class SoundPlayer(private val context: Context?) : ISoundPlayer, SoundPool.OnLoa
         loaded = true
     }
 
-    override fun stopAllSounds() { //todo this is not working is loop is toggled
-        soundPool.stop(barkId)
-    }
-
     override fun setLoop(shouldLoop: Boolean) {
         loop = if (shouldLoop) {
             -1
         } else {
             0
         }
+
+        if (!shouldLoop) {
+            soundPool.release()
+        }
     }
 
     private var loaded = false
     private val SOUND_FOLDER = "sounds"
     //    private val soundPool: SoundPool by lazy { SoundPool.Builder().setMaxStreams(1).build() }
-    private val soundPool = SoundPool(1, AudioManager.STREAM_MUSIC, 0);
+    private val soundPool = SoundPool(1, AudioManager.STREAM_MUSIC, 0)
     private val soundList = mutableListOf<Sound>()
     private val assetManager: AssetManager? = null
 
@@ -51,7 +50,7 @@ class SoundPlayer(private val context: Context?) : ISoundPlayer, SoundPool.OnLoa
     override fun bark() {
 //        soundPool.load(context, context?.resources?.getIdentifier("barking", "raw/sounds", context?.packageName))
 //        val barkId = soundPool.load(context, R.raw.barking, 1)
-        loaded?.let {
+        loaded.let {
             soundPool.play(barkId, 1f, 1f, 1, loop, 1f)
         }
     }
@@ -83,11 +82,11 @@ class SoundPlayer(private val context: Context?) : ISoundPlayer, SoundPool.OnLoa
     private fun load(sound: Sound) {
         val fileDescriptor = assetManager?.openFd(sound.pathName)
         val soundId = soundPool.load(fileDescriptor, 1)
-        sound.id = soundId
+        sound.resourceId = soundId
     }
 
     fun play(sound: Sound) {
-        val soundId = sound.id ?: return
+        val soundId = sound.resourceId
         soundPool.play(soundId, 1.0f, 1.0f, 1, 0, 1.0f)
     }
 

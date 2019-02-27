@@ -1,4 +1,5 @@
-package com.guyverhopkins.omgsquirrel.ui;
+package com.guyverhopkins.omgsquirrel.ui.gallery;
+
 import android.content.Context;
 import android.graphics.Matrix;
 import android.graphics.PointF;
@@ -8,7 +9,6 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.view.ScaleGestureDetector;
 import android.view.View;
-import android.view.View.OnTouchListener;
 import androidx.appcompat.widget.AppCompatImageView;
 
 public class TouchImageView extends AppCompatImageView {
