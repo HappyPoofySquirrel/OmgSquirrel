@@ -3,7 +3,6 @@ package com.guyverhopkins.omgsquirrel.core.sound
 import android.content.ContentValues.TAG
 import android.content.Context
 import android.content.res.AssetManager
-import android.media.AudioManager
 import android.media.SoundPool
 import android.util.Log
 import com.guyverhopkins.omgsquirrel.R
@@ -37,10 +36,9 @@ class SoundPlayer(private val context: Context?) : ISoundPlayer, SoundPool.OnLoa
     private var loaded = false
     private val SOUND_FOLDER = "sounds"
     //    private val soundPool: SoundPool by lazy { SoundPool.Builder().setMaxStreams(1).build() }
-    private val soundPool = SoundPool(1, AudioManager.STREAM_MUSIC, 0)
+    private val soundPool = SoundPool.Builder().setMaxStreams(1).build()
     private val soundList = mutableListOf<Sound>()
     private val assetManager: AssetManager? = null
-
     val barkId = soundPool.load(context, R.raw.barking, 1)
 
     init {
@@ -80,9 +78,9 @@ class SoundPlayer(private val context: Context?) : ISoundPlayer, SoundPool.OnLoa
 
     @Throws(IOException::class)
     private fun load(sound: Sound) {
-        val fileDescriptor = assetManager?.openFd(sound.pathName)
-        val soundId = soundPool.load(fileDescriptor, 1)
-        sound.resourceId = soundId
+//        val fileDescriptor = assetManager?.openFd(sound.pathName)
+//        val soundId = soundPool.load(fileDescriptor, 1)
+//        sound.resourceId = soundId
     }
 
     fun play(sound: Sound) {

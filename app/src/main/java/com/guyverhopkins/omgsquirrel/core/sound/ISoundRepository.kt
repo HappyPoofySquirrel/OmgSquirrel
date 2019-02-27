@@ -1,3 +1,7 @@
 package com.guyverhopkins.omgsquirrel.core.sound
 
-interface ISoundRepository
+import androidx.paging.DataSource
+
+interface ISoundRepository {
+    fun getAllSounds(): DataSource.Factory<Int, Sound>
+}
