@@ -14,6 +14,7 @@ class SoundPlayer(private val context: Context?) : ISoundPlayer, SoundPool.OnLoa
     private val soundPool = SoundPool.Builder().setMaxStreams(1).build()
     private lateinit var playableSounds: IntArray
     private var loop = 0
+    private var currentSound: Int = 0
 
     override fun setSounds(sounds: PagedList<Sound>?) {
         sounds?.let {
@@ -37,12 +38,14 @@ class SoundPlayer(private val context: Context?) : ISoundPlayer, SoundPool.OnLoa
         }
 
         if (!shouldLoop) {
-            soundPool.release()
+            soundPool.stop(currentSound)
         }
     }
 
+
     override fun playSound(position: Int) {
-        soundPool.play(playableSounds[position], 1f, 1f, 1, loop, 1f)
+        currentSound = playableSounds[position]
+        soundPool.play(currentSound, 1f, 1f, 1, loop, 1f)
     }
 
     init {

@@ -5,9 +5,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
 import android.widget.ImageView
-import androidx.core.content.ContextCompat
 import com.guyverhopkins.omgsquirrel.R
 import com.guyverhopkins.omgsquirrel.core.gallery.GridItem
+import com.squareup.picasso.Picasso
 
 /**
  * created by ghopkins 2/28/2019.
@@ -18,7 +18,9 @@ class GalleryAdapter(private var images: Array<GridItem>) : BaseAdapter() {
         val image = images[position]
         val view = LayoutInflater.from(parent?.context).inflate(R.layout.grid_item_layout, parent, false)
         val imageView = view.findViewById<ImageView>(R.id.iv_grid_item)
-        imageView.setImageDrawable(ContextCompat.getDrawable(parent!!.context, R.drawable.ic_star_filled_24dp))
+        Picasso.with(parent?.context).load("https://c1.staticflickr.com/1/680/22549436148_873dff5107_b.jpg")
+            .into(imageView)
+//        imageView.setImageDrawable(ContextCompat.getDrawable(parent!!.context, R.drawable.ic_launcher_foreground))
         return view
     }
 
