@@ -30,16 +30,31 @@ class SoundsViewModel(private val repo: ISoundRepository, private val soundPlaye
     }
 
     fun onLoopTogglePressed() {
-//        val sound = Sound("test")
-
-//        sound.displayName = "mad"
-//        sound.isFavorite = true
-//        soundsList.value = listOf(sound)
-
         loopOnFlag.value?.let {
             loopOnFlag.value = !it
             soundPlayer.setLoop(!it)
         }
+    }
+
+    fun onFavoriteToggled(checked: Boolean, position: Int) {
+        val sound = sounds.value?.get(position)
+        sound?.let {
+            it.isFavorite = checked
+            repo.updateSound(it)
+        }
+    }
+
+    override fun onCleared() {
+        super.onCleared()
+        soundPlayer.release()
+    }
+
+    fun updateSoundPlayer(sounds: PagedList<Sound>?) {
+        soundPlayer.setSounds(sounds)
+    }
+
+    fun playSound(position: Int) {
+        soundPlayer.playSound(position)
     }
 }
 

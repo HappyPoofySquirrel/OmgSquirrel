@@ -4,4 +4,5 @@ import androidx.paging.DataSource
 
 interface ISoundRepository {
     fun getAllSounds(): DataSource.Factory<Int, Sound>
+    fun updateSound(sound: Sound)
 }

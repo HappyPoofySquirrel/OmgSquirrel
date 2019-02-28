@@ -14,11 +14,6 @@ data class Sound(
     var fileName: String = ""
     var isFavorite = false
 
-    init {
-//        val splitPath = pathName.split("/".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
-//        this.fileName = splitPath[splitPath.size - 1]
-    }
-
     companion object {
         fun populateDataBase(): Array<Sound> {
             return arrayOf(

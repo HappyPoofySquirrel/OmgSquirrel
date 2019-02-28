@@ -42,7 +42,7 @@ class SoundsFragment : Fragment(), SoundsAdapter.FavoriteToggleListener, SoundsA
             activity?.finish() //todo handle application being null better
         }
 
-        btn_bark.setOnClickListener {
+        rv_sounds.setOnClickListener {
             viewModel.onBarkPressed()
         }
 
@@ -65,6 +65,7 @@ class SoundsFragment : Fragment(), SoundsAdapter.FavoriteToggleListener, SoundsA
         })
 
         viewModel.sounds.observe(this, Observer {
+            viewModel.updateSoundPlayer(it) //todo is there a way i can observe this in the sound player class?
             val adapter = rv_sounds.adapter as SoundsAdapter
             adapter.submitList(it)
         })
@@ -73,12 +74,13 @@ class SoundsFragment : Fragment(), SoundsAdapter.FavoriteToggleListener, SoundsA
         adapter.setItemClickListener(this)
         rv_sounds.adapter = adapter
         rv_sounds.addItemDecoration(DividerItemDecoration(activity, DividerItemDecoration.VERTICAL))
-
     }
 
     override fun onSoundPressed(position: Int) {
+        viewModel.playSound(position)
     }
 
     override fun onFavoriteToggled(isChecked: Boolean, position: Int) {
+        viewModel.onFavoriteToggled(isChecked, position)
     }
 }
