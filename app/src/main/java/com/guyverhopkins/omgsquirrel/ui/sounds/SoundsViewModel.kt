@@ -25,10 +25,6 @@ class SoundsViewModel(private val repo: ISoundRepository, private val soundPlaye
         sounds = pagedListBuilder.build()
     }
 
-    fun onBarkPressed() {
-        soundPlayer.bark()
-    }
-
     fun onLoopTogglePressed() {
         loopOnFlag.value?.let {
             loopOnFlag.value = !it

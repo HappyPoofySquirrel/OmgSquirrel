@@ -1,13 +1,14 @@
 package com.guyverhopkins.omgsquirrel.ui.gallery
 
-import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProviders
 import com.guyverhopkins.omgsquirrel.R
+import com.guyverhopkins.omgsquirrel.core.gallery.GridItem
+import kotlinx.android.synthetic.main.gallery_fragment.*
 
 class GalleryFragment : Fragment() {
 
@@ -23,6 +24,22 @@ class GalleryFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProviders.of(this).get(GalleryViewModel::class.java)
+
+        val array = arrayOf(
+            GridItem(),
+            GridItem(),
+            GridItem(),
+            GridItem(),
+            GridItem(),
+            GridItem(),
+            GridItem(),
+            GridItem(),
+            GridItem()
+        )
+        val adapter = GalleryAdapter(array)
+        gv_gallery.adapter = adapter
+
+
         // TODO: Use the ViewModel
     }
 

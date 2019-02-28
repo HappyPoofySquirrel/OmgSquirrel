@@ -42,10 +42,6 @@ class SoundsFragment : Fragment(), SoundsAdapter.FavoriteToggleListener, SoundsA
             activity?.finish() //todo handle application being null better
         }
 
-        rv_sounds.setOnClickListener {
-            viewModel.onBarkPressed()
-        }
-
         fab_loop_toggle.setOnClickListener {
             viewModel.onLoopTogglePressed()
         }
