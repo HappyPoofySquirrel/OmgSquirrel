@@ -52,6 +52,10 @@ class SoundsViewModel(private val repo: ISoundRepository, private val soundPlaye
     fun playSound(position: Int) {
         soundPlayer.playSound(position)
     }
+
+    fun stopSound() {
+        soundPlayer.stopSound()
+    }
 }
 
 class SoundsViewModelFactory(private val soundsRepo: ISoundRepository, private val soundPlayer: ISoundPlayer) :

@@ -42,10 +42,13 @@ class SoundPlayer(private val context: Context?) : ISoundPlayer, SoundPool.OnLoa
         }
     }
 
+    override fun stopSound() {
+        soundPool.stop(currentSound)
+    }
 
     override fun playSound(position: Int) {
-        currentSound = playableSounds[position]
-        soundPool.play(currentSound, 1f, 1f, 1, loop, 1f)
+        setLoop(true)
+        currentSound = soundPool.play(playableSounds[position], 1f, 1f, 1, loop, 1f)
     }
 
     init {

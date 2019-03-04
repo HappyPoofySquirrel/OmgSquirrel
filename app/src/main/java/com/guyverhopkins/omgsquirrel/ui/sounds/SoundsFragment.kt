@@ -1,9 +1,7 @@
 package com.guyverhopkins.omgsquirrel.ui.sounds
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -28,6 +26,12 @@ class SoundsFragment : Fragment(), SoundsAdapter.FavoriteToggleListener, SoundsA
         return inflater.inflate(R.layout.sounds_fragment, container, false)
     }
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setHasOptionsMenu(true)
+
+    }
+
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
@@ -42,21 +46,22 @@ class SoundsFragment : Fragment(), SoundsAdapter.FavoriteToggleListener, SoundsA
             activity?.finish() //todo handle application being null better
         }
 
-        fab_loop_toggle.setOnClickListener {
-            viewModel.onLoopTogglePressed()
+        fab_pause.setOnClickListener {
+            viewModel.stopSound()
         }
 
         viewModel.loop.observe(this, Observer {
-            var drawableResource = R.drawable.ic_loop_green_24dp
+            viewModel.stopSound()
+            var drawableResource = R.drawable.ic_repeat_active_24dp
             if (!it) {
-                drawableResource = R.drawable.ic_loop_white_24dp
+                drawableResource = R.drawable.ic_repeat_inactive_24dp
             }
             context?.let {
                 val drawable = ContextCompat.getDrawable(
                     it,
                     drawableResource
                 )
-                fab_loop_toggle.setImageDrawable(drawable)
+                menu?.getItem(0)?.setIcon(drawable)
             }
         })
 
@@ -70,6 +75,23 @@ class SoundsFragment : Fragment(), SoundsAdapter.FavoriteToggleListener, SoundsA
         adapter.setItemClickListener(this)
         rv_sounds.adapter = adapter
         rv_sounds.addItemDecoration(DividerItemDecoration(activity, DividerItemDecoration.VERTICAL))
+    }
+
+    private var menu: Menu? = null
+
+    override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
+        this.menu = menu
+        inflater?.inflate(R.menu.menu_sounds_fragment, menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        when (item?.itemId) {
+            R.id.loop -> {
+                viewModel.onLoopTogglePressed()
+                return true
+            }
+        }
+        return super.onOptionsItemSelected(item)
     }
 
     override fun onSoundPressed(position: Int) {

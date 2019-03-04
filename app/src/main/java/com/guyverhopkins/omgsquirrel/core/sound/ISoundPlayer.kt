@@ -7,4 +7,5 @@ interface ISoundPlayer {
     fun release()
     fun setSounds(sounds: PagedList<Sound>?)
     fun playSound(position: Int)
+    fun stopSound()
 }
