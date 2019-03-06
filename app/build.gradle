@@ -48,6 +48,8 @@ dependencies {
     //OkHttp
     implementation 'com.squareup.okhttp3:okhttp:3.10.0'
     implementation 'com.squareup.okio:okio:1.14.0'
+    implementation "com.squareup.okhttp3:logging-interceptor:3.10.0"
+
 
     //Gson
     implementation 'com.google.code.gson:gson:2.8.2'
@@ -67,6 +69,8 @@ dependencies {
 
     //paging
     implementation "android.arch.paging:runtime:1.0.1"
+
+//    implementation "com.googlecode.flickrj-android:2.1.0"
 
     //room
     def room_version = "2.0.0"

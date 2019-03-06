@@ -14,7 +14,7 @@ import kotlinx.android.synthetic.main.sounds_fragment.*
 
 //todo create ability to set as ringtone
 // and control playback speed
-//stop on second press of item have an animation playing on the cell or button that is currently playing
+//have an animation playing on the cell or button that is currently playing
 class SoundsFragment : Fragment(), SoundsAdapter.FavoriteToggleListener, SoundsAdapter.ItemClickListener {
 
     private lateinit var viewModel: SoundsViewModel

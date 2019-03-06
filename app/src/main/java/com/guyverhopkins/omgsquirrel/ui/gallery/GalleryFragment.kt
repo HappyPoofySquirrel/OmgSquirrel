@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import com.guyverhopkins.omgsquirrel.R
+import com.guyverhopkins.omgsquirrel.core.gallery.FlickrImagesGetterFactory
 import com.guyverhopkins.omgsquirrel.core.gallery.GridItem
 import kotlinx.android.synthetic.main.gallery_fragment.*
 
@@ -23,7 +24,10 @@ class GalleryFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProviders.of(this).get(GalleryViewModel::class.java)
+
+        val flickrImagesGetter = FlickrImagesGetterFactory.build(activity!!) //todo handle null better
+        viewModel =
+            ViewModelProviders.of(this, GalleryViewModelFactory(flickrImagesGetter)).get(GalleryViewModel::class.java)
 
         val array = arrayOf(
             GridItem(),
@@ -39,7 +43,7 @@ class GalleryFragment : Fragment() {
         val adapter = GalleryAdapter(array)
         gv_gallery.adapter = adapter
 
-
+        viewModel.getImages()
         // TODO: Use the ViewModel
     }
 

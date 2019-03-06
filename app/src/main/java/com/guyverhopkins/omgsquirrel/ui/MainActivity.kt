@@ -13,5 +13,9 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         bottom_navigation.setupWithNavController(Navigation.findNavController(this, R.id.my_nav_host_fragment))
+
+        if (savedInstanceState == null) {
+            bottom_navigation.selectedItemId = R.id.sounds
+        }
     }
 }
