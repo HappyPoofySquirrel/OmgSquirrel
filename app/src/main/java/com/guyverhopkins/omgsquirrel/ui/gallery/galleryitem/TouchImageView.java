@@ -1,4 +1,4 @@
-package com.guyverhopkins.omgsquirrel.ui.gallery;
+package com.guyverhopkins.omgsquirrel.ui.gallery.galleryitem;
 
 import android.content.Context;
 import android.graphics.Matrix;
