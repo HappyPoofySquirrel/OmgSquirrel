@@ -1,4 +1,4 @@
-package com.guyverhopkins.omgsquirrel.core.gallery
+package com.guyverhopkins.omgsquirrel.core.gallery.network
 
 import com.google.gson.annotations.SerializedName
 

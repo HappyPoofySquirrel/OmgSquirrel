@@ -2,8 +2,8 @@ package com.guyverhopkins.omgsquirrel.ui.gallery
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.guyverhopkins.omgsquirrel.core.gallery.FlikrResponse
-import com.guyverhopkins.omgsquirrel.core.gallery.IFlickrImagesGetter
+import com.guyverhopkins.omgsquirrel.core.gallery.network.FlikrResponse
+import com.guyverhopkins.omgsquirrel.core.gallery.network.IFlickrImagesGetter
 import com.guyverhopkins.omgsquirrel.core.networking.network.NetworkError
 
 class GalleryViewModel(private val imagesGetter: IFlickrImagesGetter) : ViewModel(), IFlickrImagesGetter.Listener {

@@ -7,8 +7,8 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import com.guyverhopkins.omgsquirrel.R
-import com.guyverhopkins.omgsquirrel.core.gallery.FlickrImagesGetterFactory
 import com.guyverhopkins.omgsquirrel.core.gallery.GridItem
+import com.guyverhopkins.omgsquirrel.core.gallery.network.FlickrImagesGetterFactory
 import kotlinx.android.synthetic.main.gallery_fragment.*
 
 class GalleryFragment : Fragment() {

@@ -1,4 +1,4 @@
-package com.guyverhopkins.omgsquirrel.core.gallery
+package com.guyverhopkins.omgsquirrel.core.gallery.network
 
 import android.content.Context
 import com.guyverhopkins.omgsquirrel.BuildConfig
@@ -58,7 +58,9 @@ class FlickrImagesGetterFactory {
         fun build(context: Context): IFlickrImagesGetter {
             return FlickrImagesGetter(
                 BaseNetworkManager(),
-                createRequestBuilder(context)
+                createRequestBuilder(
+                    context
+                )
             )
         }
 
