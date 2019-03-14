@@ -1,6 +1,7 @@
 package com.guyverhopkins.omgsquirrel.ui
 
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.Navigation
 import androidx.navigation.ui.setupWithNavController
@@ -17,5 +18,7 @@ class MainActivity : AppCompatActivity() {
         if (savedInstanceState == null) {
             bottom_navigation.selectedItemId = R.id.sounds
         }
+
+        Log.d("OutputTest", "trest")
     }
 }
