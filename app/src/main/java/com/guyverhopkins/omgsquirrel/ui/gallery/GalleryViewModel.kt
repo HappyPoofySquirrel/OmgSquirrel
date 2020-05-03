@@ -16,7 +16,6 @@ class GalleryViewModel(private val imagesGetter: IFlickrImagesGetter) : ViewMode
 
     }
 
-
     fun getImages() {
         imagesGetter.getImages(this)
     }

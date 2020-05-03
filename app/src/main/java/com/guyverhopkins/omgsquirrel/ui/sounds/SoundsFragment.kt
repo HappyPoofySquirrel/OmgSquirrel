@@ -50,7 +50,7 @@ class SoundsFragment : Fragment(), SoundsAdapter.FavoriteToggleListener, SoundsA
             viewModel.stopSound()
         }
 
-        viewModel.loop.observe(this, Observer {
+        viewModel.loop.observe(viewLifecycleOwner, Observer {
             viewModel.stopSound()
             var drawableResource = R.drawable.ic_repeat_active_24dp
             if (!it) {
@@ -61,11 +61,11 @@ class SoundsFragment : Fragment(), SoundsAdapter.FavoriteToggleListener, SoundsA
                     it,
                     drawableResource
                 )
-                menu?.getItem(0)?.setIcon(drawable)
+                menu?.getItem(0)?.icon = drawable
             }
         })
 
-        viewModel.sounds.observe(this, Observer {
+        viewModel.sounds.observe(viewLifecycleOwner, Observer {
             viewModel.updateSoundPlayer(it) //todo is there a way i can observe this in the sound player class?
             val adapter = rv_sounds.adapter as SoundsAdapter
             adapter.submitList(it)
@@ -79,13 +79,13 @@ class SoundsFragment : Fragment(), SoundsAdapter.FavoriteToggleListener, SoundsA
 
     private var menu: Menu? = null
 
-    override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         this.menu = menu
-        inflater?.inflate(R.menu.menu_sounds_fragment, menu)
+        inflater.inflate(R.menu.menu_sounds_fragment, menu)
     }
 
-    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-        when (item?.itemId) {
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
             R.id.loop -> {
                 viewModel.onLoopTogglePressed()
                 return true

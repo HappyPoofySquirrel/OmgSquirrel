@@ -6,7 +6,6 @@
         android:layout_height="match_parent"
         tools:context=".ui.gallery.GalleryFragment">
 
-
     <GridView
             android:id="@+id/gv_gallery"
             android:layout_width="match_parent"
@@ -15,6 +14,6 @@
             android:columnWidth="100dp"
             android:gravity="center"
             android:minHeight="90dp"
-            android:numColumns="auto_fit"
+            android:numColumns="2"
             android:stretchMode="columnWidth"/>
 </LinearLayout>

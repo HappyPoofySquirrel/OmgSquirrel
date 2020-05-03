@@ -2,8 +2,8 @@ package com.guyverhopkins.omgsquirrel.core.gallery.network
 
 import android.content.Context
 import com.guyverhopkins.omgsquirrel.BuildConfig
-import com.guyverhopkins.omgsquirrel.core.networking.network.BaseNetworkManager
 import com.guyverhopkins.omgsquirrel.core.networking.network.ClientProvider
+import com.guyverhopkins.omgsquirrel.core.networking.network.INetworkManager
 import com.guyverhopkins.omgsquirrel.core.networking.network.NetworkError
 import com.guyverhopkins.omgsquirrel.core.networking.network.NetworkManager
 import com.guyverhopkins.omgsquirrel.core.networking.network.interceptor.CurlLoggingInterceptor
@@ -18,11 +18,13 @@ import retrofit2.http.GET
  * created by ghopkins 3/4/2019.
  */
 private class FlickrImagesGetter(
-    private val networkManager: NetworkManager,
+    private val networkManager: INetworkManager,
     private val requestBuilder: RequestBuilder
-) : IFlickrImagesGetter, NetworkManager.NetworkCallback {
+) : IFlickrImagesGetter, INetworkManager.NetworkCallback {
 
-    lateinit var listener: IFlickrImagesGetter.Listener
+    private val perpage = 30 //todo make larger if tablet? or smaller is amller screen?
+
+    private lateinit var listener: IFlickrImagesGetter.Listener
 
     private var call: Call<FlikrResponse>? = null
 
@@ -33,8 +35,9 @@ private class FlickrImagesGetter(
         networkManager.enqueueCall(call as Call<FlikrResponse>, this)
     }
 
+    //https://contextualwebsearch-websearch-v1.p.rapidapi.com/api/Search/ImageSearchAPI?autoCorrect=true&pageNumber=1&pageSize=10&q=6&safeSearch=false
     interface Service {
-        @GET("?method=flickr.photosets.getPhotos&oauth_consumer_key=54f1d0146bcec3b405164e253e8ff710&photoset_id=72157661135553275&user_id=137813339%40N03&format=json&nojsoncallback=1&oauth_token=72157663053868089-63166f4e59a184ca&api_sig=d50c3cc7a51f089c28c3efe145e22b6f4aa95f0c")
+        @GET("api/search/images/?q=squirrel")
         fun get(): Call<FlikrResponse>
     }
 
@@ -42,13 +45,13 @@ private class FlickrImagesGetter(
         call?.cancel()
     }
 
-    override fun onFailure(error: NetworkError) {
-        listener.onGetPictureError(error)
-    }
-
     override fun onResponse(response: Response<*>) {
         val flikrResponse: FlikrResponse = response.body() as FlikrResponse
         listener.onGetPictures(flikrResponse)
+    }
+
+    override fun onFailure(error: NetworkError) {
+        listener.onGetPictureError(error)
     }
 }
 
@@ -57,7 +60,7 @@ class FlickrImagesGetterFactory {
         @JvmStatic
         fun build(context: Context): IFlickrImagesGetter {
             return FlickrImagesGetter(
-                BaseNetworkManager(),
+                NetworkManager(),
                 createRequestBuilder(
                     context
                 )
@@ -70,7 +73,7 @@ class FlickrImagesGetterFactory {
             readTimeout: Long = 100
         ): RequestBuilder {
             val url =
-                "https://api.flickr.com/services/rest/"
+                BuildConfig.FLIKR_URL
             val requestBuilder =
                 RequestBuilder(ClientProvider.getInstance().getHttpClient(context, readTimeout)).baseurl(url)
 
